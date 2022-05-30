@@ -1,6 +1,9 @@
 
 import { useRecoilState } from "recoil";
+```js
 import { commentSection, editCommentModal, logoutModal, mobilView, openModal, settingsModal } from "../atoms/modalAtom";
+//include "e" within mobilView, 
+```
 import Feed from "../components/Feed";
 import Modal from "../components/Modal";
 import Rightbar from "../components/Rightbar";
