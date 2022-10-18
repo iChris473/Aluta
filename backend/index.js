@@ -29,7 +29,7 @@ const removeImg = async (req, res) => {
 app.use("/api", router)
 
 app.use('/', (req, res) => {
-    res.send("Aluta 1.0 is running...")
+    res.send("Aluta 1.0 is running... iChris is preparing a revolution")
 })
 
 // remove images with this route
