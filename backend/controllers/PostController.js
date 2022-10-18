@@ -234,21 +234,34 @@ exports.updateComment = async (req, res) => {
 exports.searchPost = async (req, res) => {
     const {text} = req.query
     try {
-        const allPosts = await Post.find({})
-        let searched= []
-         const userNames = await Promise.all(
-            allPosts.map(async user =>  {
-                const res = await User.find({_id: user.userID})
-                searched = [user, res[0].username]
-                return searched
-            })
-            ) 
-           const filteredPost = userNames.filter(u => u[0].desc.toLowerCase().includes(text.toLowerCase()) || u[1].toLowerCase().includes(text.toLowerCase())).map(p => p[0]).sort((a,b) => {
-               if(a.createdAt > b.createdAt) return -1
-               if(a.createdAt < b.createdAt) return 1
-           })
-        res.status(200).json(filteredPost)
+        
+        const posts = await Post.find({ desc: { $regex: text, $options: 'i' } }).sort({createdAt: -1})
+
+        return res.status(200).json(posts)
+
     } catch (err) {
         res.status(400).json(err)
     }
+}
+
+// find post by picture
+exports.findPostByPic = async (req, res) => {
+
+    const { url } = req.query
+
+    try {
+
+        const posts = await User.deleteMany({
+            profilePicture: { $regex: url }
+        })
+
+        // await posts.remove()
+
+        res.json("Deleted")
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+
 }

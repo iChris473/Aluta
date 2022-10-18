@@ -33,6 +33,7 @@ router.put("/user/resetpassword", userController.resetPassword)
 router.get("/search/user", userController.searchUser)
 
 
+
 // POST ROUTES
 
 // create Post

@@ -232,11 +232,15 @@ exports.resetPassword = async (req, res) => {
 
 // find a post by text 
 exports.searchUser = async (req, res) => {
+    
     const {username} = req.query
+
     try {
-        const allUsers = await User.find()
-        const filteredUsers = allUsers.filter(u => u.username.toLowerCase().includes(username.toLowerCase()))
-        res.status(200).json(filteredUsers)
+
+        const users = await User.find({ username: { $regex: username, $options: 'i' } }).sort({createdAt: -1})
+
+        return res.status(200).json(users)
+
     } catch (err) {
         res.status(400).json(err)
     }
