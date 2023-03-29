@@ -54,5 +54,5 @@ app.use('/api/upload', upload.single("file"), (req, res) => res.status(200).json
 
 
 // Listening on port
-const port = process.env.PORT || 8800
+const port = process.env.PORT || 8000
 app.listen(port, () => console.log(`Backend Running on port ${port}`))
